@@ -1,0 +1,34 @@
+<amp-analytics type="amplitude" id="amplitude">
+    <script type="application/json">
+ {
+	"vars": {
+		"apiKey": "YOUR API KEY"
+	},
+    "linkers" : {
+	        "enabled": true
+      },
+	"triggers": {
+		"pageView": {
+			"on": "visible",
+			"request": "event",
+			"extraUrlParams": {
+				"event": {
+					"event_type": "pageview",
+					"event_properties": {
+						"page title": "${title}",
+						"url": "${ampdocUrl}",
+						"amp host": "${canonicalHost}",
+						"amp host url": "${canonicalUrl}",
+						"utm_source": "${queryParam(utm_source)}",
+						"utm_campaign": "${queryParam(utm_campaign)}",
+						"utm_medium": "${queryParam(utm_medium)}",
+						"utm_term": "${queryParam(utm_term)}",
+						"utm_content": "${queryParam(utm_content)}"
+					}
+				}
+			}
+		}
+	}
+}
+</script>
+</amp-analytics>

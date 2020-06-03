@@ -1,0 +1,43 @@
+<amp-analytics type="amplitude" id="amplitude">
+	<script type="application/json">
+ {
+	"vars": {
+		"apiKey": "YOUR API KEY"
+	},
+    
+	"triggers": {
+		"pageView": {
+			"on": "visible",
+			"request": "event",
+			"extraUrlParams": {
+				"event": {
+					"event_type": "form submitted",
+					"event_properties": {
+						"page title": "${title}",
+						"url": "${ampdocUrl}",
+						"amp host": "${canonicalHost}",
+						"amp host url": "${canonicalUrl}",
+						"utm_source": "${queryParam(utm_source)}",
+						"utm_campaign": "${queryParam(utm_campaign)}",
+						"utm_medium": "${queryParam(utm_medium)}",
+						"utm_term": "${queryParam(utm_term)}",
+						"utm_content": "${queryParam(utm_content)}",
+                        "email": "${queryParam(email)}",
+						"name": "${queryParam(name)}",
+						"address": "${queryParam(address)}",
+						"phone": "${queryParam(phone)}",
+					},
+					"user_properties": {
+						"utm_source": "${queryParam(utm_source)}",
+						"email": "${queryParam(email)}",
+						"name": "${queryParam(name)}",
+						"address": "${queryParam(address)}",
+						"phone": "${queryParam(phone)}",
+					}
+				}
+			}
+		}
+	}
+}
+</script>
+</amp-analytics>
