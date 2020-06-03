@@ -1,0 +1,14 @@
+<!-- This script should trigger on the page "hosting" the frame -->
+<script>
+    window.addEventListener("message", receiveMessage, false);
+    function receiveMessage(e) {
+        var d = e.data;
+        console.log(e);
+        if (d.messageType == 'frameTracking') {
+            dataLayer.push({
+                'event': 'frame.' + d.eventName,
+                'frame': d.properties
+            });
+        }
+    }
+</script>

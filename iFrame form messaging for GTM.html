@@ -26,11 +26,127 @@ It will return "true" if the window is not framed -->
 <!-- This script should go on the frame itself -->
 
 <script>
-window.dataLayer.push({
-    'event': 'analytics.frame.formdata',
-    'analytics': {
-        // using mapped formdata, see form data collector script   
-        'formdata': {{ Analytics - DL - frame.formdata}}
+
+
+    if (document.addEventListener) {
+        document.addEventListener('submit', submitCallback, false);
+        document.addEventListener('click', clickCallback, false);
+    } else {
+        document.attachEvent('onsubmit', submitCallback);
+        document.attachEvent('onclick', clickCallback);
+
     }
-});
+
+    //page load
+    messageParent('dom', {
+        'url': window.location.href,
+        'title': document.title,
+        'referrer': document.referrer
+    });
+
+    function submitCallback(e) {
+        console.log(e);
+        var form = e.target;
+        if (form.tagName != 'form') form = form.closest('form');
+        if (form) {
+            var formdata = {};
+            i = form.elements.length;
+            while (i-- > 0) {
+                fe = form.elements[i];
+                //console.log(fe);
+                if (fe.id || fe.name) {
+                    fen = fe.id || fe.name;
+                    if (fe.type.match(/select/i)) {
+
+                        var so = fe.options;
+                        var si = so.length;
+                        var sf = true;
+                        var sov = '';
+                        while (si-- > 0) {
+                            if (so[si].selected == true) {
+                                if (sf == false) {
+                                    sov += ', ';
+                                    sf = false;
+                                } else {
+                                    sf = false;
+                                }
+                                sov += so[si].value;
+                            }
+                        }
+
+                        formdata[fen] = sov;
+                    }
+
+                    else if (fe.type.match(/(checkbox|radio)/i)) {
+                        //console.log('checkbox');
+                        if (fe.checked == true) {
+
+                            if (formdata[fen]) {
+                                formdata[fen] += ', ';
+                            }
+                            formdata[fen] = fe.value;
+                        }
+                    }
+
+                    else if (fe.type.match(/password/i)) {
+                        //nullop - don't store pw fields
+                        //console.log('checkbox');
+                    }
+
+                    else if (fe.tagName.match(/(input|textarea)/i)) {
+
+                        formdata[fen] = fe.value;
+                    }
+
+                }
+            }
+
+            messageParent('formSubmit', {
+                'url': window.location.href,
+                'elementUrl': form.href,
+                'elementClasses': form.classList.value,
+                'elementId': form.id,
+                'elementTarget': form.target,
+                'elementText': form.innerText,
+                'formdata': formdata
+            });
+            return true;
+        }
+    }
+
+    function clickCallback(e) {
+        console.log(e);
+        var t = e.target;
+        var eventName;
+        var clickUrl;
+        if (t.tagName == 'A' || t.tagName == 'a') {
+            eventName = 'linkClick';
+            clickUrl = t.href;
+        } else if (t.closest('a')) {
+            eventName = 'linkClick';
+            clickUrl = t.closest('a').href;
+        } else if (t.tagName.match(/button/i) || t.classList.value.match(/cta|button|btn/i) || t.id.match(/cta|button|btn/i)) {
+            eventName = 'click';
+            clickUrl = t.href;
+        }
+
+        if (eventName) {
+            messageParent(eventName, {
+                'url': window.location.href,
+                'elementUrl': clickUrl,
+                'elementClasses': t.classList.value,
+                'elementId': t.id,
+                'elementTarget': t.target,
+                'elementText': t.innerText,
+                'element': t.outerHTML
+            });
+        }
+
+    }
+
+    function messageParent(eventName, props) {
+        console.log({ 'messageType': 'frameTracking', 'eventName': eventName, properties: props });
+        window.parent.postMessage({ 'messageType': 'frameTracking', 'eventName': eventName, properties: props }, "*");
+    }
+
 </script>
