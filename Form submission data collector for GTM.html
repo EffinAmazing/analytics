@@ -1,0 +1,61 @@
+<script>
+    var form = {{ Form Element }};
+    var formdata = {};
+    i = form.elements.length;
+    while (i-- > 0) {
+        fe = form.elements[i];
+        //console.log(fe);
+        if (fe.name || fe.id) {
+            fen = fe.name || fe.id;
+            if (fe.type.match(/select/i)) {
+
+                var so = fe.options;
+                var si = so.length;
+                var sf = true;
+                var sov = '';
+                while (si-- > 0) {
+                    if (so[si].selected == true) {
+                        if (sf == false) {
+                            sov += ', ';
+                            sf = false;
+                        } else {
+                            sf = false;
+                        }
+                        sov += so[si].value;
+                    }
+                }
+
+                formdata[fen] = sov;
+            }
+
+            else if (fe.type.match(/(checkbox|radio)/i)) {
+                //console.log('checkbox');
+                if (fe.checked == true) {
+
+                    if (formdata[fen]) {
+                        formdata[fen] += ', ';
+                    }
+                    formdata[fen] = fe.value;
+                }
+            }
+
+            else if (fe.type.match(/password/i)) {
+                //nullop - don't store pw fields
+                //console.log('checkbox');
+            }
+
+            else if (fe.tagName.match(/(input|textarea)/i)) {
+
+                formdata[fen] = fe.value;
+            }
+
+        }
+    };
+
+    window.dataLayer.push({
+        'event': 'analytics.formdata',
+        'analytics': {
+            'formdata': formdata
+        }
+    });
+</script>

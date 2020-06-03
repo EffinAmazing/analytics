@@ -1,0 +1,31 @@
+<script type="text/javascript">
+   /* VWO GTM integration code starts */
+   (function() {
+       window.VWO = window.VWO || [];
+       window.dataLayer = window.dataLayer || [];
+       window.VWO.push(['onVariationApplied', function(data) {
+           if (!data) {
+               return;
+           }
+           var expId = data[1],
+               variationId = data[2];
+           if (typeof(_vwo_exp[expId].comb_n[variationId]) !== 'undefined' && _vwo_exp[expId].GTM) {
+
+            // Effin Customized
+               window.dataLayer.push({
+                   'event':'analytics.experiment',
+                   'analytics':{
+                     'experiment': {
+                   //"CampaignId": expId,
+                   id: _vwo_exp[expId].name + ' (' + expId + ')',
+                   //"VariationId": variationId,
+                   variant: _vwo_exp[expId].comb_n[variationId] + ' (' + variationId + ')',
+                   source:'vwo'
+                   }
+                   }
+               })
+           }
+       }]);
+   })();
+   /* VWO GTM integration code ends */
+</script>

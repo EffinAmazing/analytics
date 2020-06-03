@@ -1,0 +1,16 @@
+<script>
+document.addEventListener('om.Analytics.track', function (event) {
+       dataLayer.push({
+        'event': 'om.Analytics.track',
+        'analytics': {
+            'promotion': {
+                'campaignName': event.detail.Campaign.data.name,
+                'campaignId': event.detail.Campaign.data.id,
+                'event': event.detail.Analytics.type,
+                'type': event.detail.Campaign.data.type
+            }
+        }
+    });
+}
+);
+</script>

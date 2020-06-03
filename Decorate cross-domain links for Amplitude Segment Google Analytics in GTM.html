@@ -1,0 +1,74 @@
+<script>
+analytics.ready(function () {
+
+
+
+    window.addEventListener("click", function(e) {
+      console.log('Event=');
+      console.log(e);
+      console.log(e.target);
+        var href = e.target.getAttribute("href");
+        if(href) {
+            var regex = new RegExp( {{Analytics - Constant - Tracking Domain Regex}},'i' );
+          console.log('REGEX=');
+          console.log(regex);
+            var deco = '';
+        try{
+            if (analytics.user().id()) {
+                deco += 'ajs_uid=' + encodeURIComponent(analytics.user().id());
+            } else if (analytics.user().anonymousId()) {
+                deco += 'ajs_aid=' + analytics.user().anonymousId();
+            }
+        } catch(e) {};
+          
+          try{
+            if (amplitude._instances.$default_instance.options.deviceId) deco += '&amp_did=' + amplitude._instances.$default_instance.options.deviceId;
+          } catch(e) {};
+        if (href.match(regex) && href.indexOf(window.location.hostname) === -1 ) {
+          console.log('MATCH=');
+          console.log(href.match(regex));
+            var s = '';
+            var um =  href.match(/^([^?#]+)/i);
+            var qm =  href.match(/^[^?#]+(\?[^#]+)/i);
+            var hm =  href.match(/(#.+$)/i);
+            if (um) s += um[1];
+            if (qm) {
+                s += qm[1] + '&' + deco;
+            } else {
+                s += '?' + deco;
+            }
+            if (hm) s += hm[1];
+
+
+            /* decorate with _ga */
+          try {
+            var tracker = ga.getAll()[0];
+            var linker = new window.gaplugins.Linker(tracker);            
+            s = linker.decorate(s);
+            e.target.href = s;
+          } catch(e) {};
+
+        }
+    }
+}
+    ) // end event listener
+  
+   /* Amplitude set device ID */
+    
+  try{
+    var amp_did = document.location.search.match(/[?&]amp_did=([^&#]+)/i);
+
+    if (amp_did) {
+        amplitude.init(amplitude._instances.$default_instance.options.apiKey, null, {deviceId: amp_did[1]});
+    }
+  } catch(e) {};
+  
+  /* Enable GA linker */
+  try {
+  ga('require','linker');
+  } catch(e) {};
+  
+  
+  
+        });
+</script>

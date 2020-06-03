@@ -1,0 +1,50 @@
+<script>
+  window._wq = window._wq || [];
+_wq.push({
+    id: "_all", onReady: function (video) {
+        listenTo(video);
+    }
+});
+
+function trackVideo(v, e) {
+
+    dataLayer.push({
+        'event': 'videoEvent',
+        'gtm.videoStatus': e,
+        'gtm.videoCurrentTime': Math.floor(v.time()),
+        'videoSecondsWatched': Math.floor(v.secondsWatched()),
+        'gtm.videoDuration': Math.floor(v.duration()),
+        'gtm.videoPercent': Math.floor(v.percentWatched() * 100),
+        'gtm.videoTitle': v.name(),
+        'videoHashedId':v.hashedId(),
+        'videoIsMuted':v.isMuted(),
+        'gtm.videoProvider': 'Wistia'
+    });
+
+} //end trackVideo
+
+function listenTo(video) {
+
+    var nextTrackSeconds = 5;
+
+    video.bind('play', function () { trackVideo(video, 'play'); });
+    video.bind('end', function () { trackVideo(video, 'complete'); nextTrackSeconds = '5'; });
+    video.bind('pause', function () { trackVideo(video, 'pause'); });
+    video.bind('seek', function () { trackVideo(video, 'seek'); });
+
+
+    video.bind('secondchange', function (s) {
+        if (s >= nextTrackSeconds) {
+            trackVideo(video, 'progress');
+          if(nextTrackSeconds >= 600) {
+            nextTrackSeconds += 300; 
+          } else if(nextTrackSeconds >= 60) {
+            nextTrackSeconds += 60;
+          } else {
+            nextTrackSeconds += 5;
+          }
+        }
+    });
+}
+
+</script>

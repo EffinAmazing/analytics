@@ -1,0 +1,11 @@
+<script>
+function gtag() {
+  dataLayer.push(arguments)
+}
+
+function reportExperimentEvent(ovar, oex) {
+  if (ovar != undefined) dataLayer.push({'event':'analytics.experiment',analytics:{'experiment':{'id': oex, 'variant':ovar,'source':'google optimize'}}});
+}
+
+gtag('event', 'optimize.callback', { callback: reportExperimentEvent });  
+</script>
