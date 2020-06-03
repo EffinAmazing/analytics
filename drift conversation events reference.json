@@ -1,0 +1,127 @@
+[{
+    "event": "drift.conversation.buttonClicked",
+    "drift": {
+        "conversationId": 2113681525,
+        "messageId": 7552921876,
+        "createdAt": 1591120140772,
+        "authorId": 5784614791,
+        "questionId": "_wazg61oib",
+        "buttonBody": "Enterprise",
+        "playbookId": 1915094,
+        "interactionId": 194448,
+        "campaignId": 2009434
+    }
+},
+{
+    "event": "drift.message.sent",
+    "drift": {
+        "data": {
+            "sidebarOpen": true,
+            "widgetVisible": true,
+            "isOnline": false,
+            "teamAvailability": {
+                "21871": {
+                    "isOnline": true
+                },
+                "21872": {
+                    "isOnline": true
+                },
+                "21873": {
+                    "isOnline": true
+                }
+            }
+        },
+        "conversationId": 2113681525,
+        "inboxId": 38114,
+        "playbookId": 1915094,
+        "interactionId": 194448,
+        "campaignId": 2009434
+    }
+},
+{
+    "event": "drift.message",
+    "drift": {
+        "data": {
+            "sidebarOpen": true,
+            "widgetVisible": true,
+            "isOnline": false,
+            "teamAvailability": {
+                "21871": {
+                    "isOnline": true
+                },
+                "21872": {
+                    "isOnline": true
+                },
+                "21873": {
+                    "isOnline": true
+                }
+            }
+        },
+        "conversationId": 2113681525,
+        "inboxId": 38114,
+        "teamMember": {
+            "id": 65628,
+            "name": "Sofia, ServiceTitan Bot"
+        },
+        "playbookId": 1915094,
+        "interactionId": 194448,
+        "campaignId": 2009434
+    }
+},
+{
+    "event": "drift.phoneCapture",
+    "drift": {
+        "conversationId": 2113681525,
+        "messageId": 7552916329,
+        "createdAt": 1591120122117,
+        "authorId": 5784614791,
+        "phone": "505-888-4941",
+        "playbookId": 1915094,
+        "interactionId": 194448,
+        "campaignId": 2009434
+    }
+},
+{
+    "event": "drift.conversation.firstInteraction",
+    "drift": {
+        "messageId": 7552890644,
+        "conversationId": 2113681525,
+        "createdAt": 1591120033797,
+        "authorId": 5784614791,
+        "playbookId": 1915094,
+        "interactionId": 194448,
+        "campaignId": 2009434
+    }
+},
+{
+    "event": "drift.emailCapture",
+    "drift": {
+        "data": {
+            "email": "pleasedontstartchat@test.nu",
+            "conversationId": 2113681525,
+            "playbookId": 1915094,
+            "interactionId": 194448,
+            "campaignId": 2009434
+        }
+    }
+},
+{
+    "event": "drift.sidebarOpen",
+    "drift": {
+        "data": {
+            "sidebarOpen": true,
+            "widgetVisible": true,
+            "isOnline": false
+        }
+    }
+},
+{
+    "event": "drift.sidebarClose",
+    "drift": {
+        "data": {
+            "sidebarOpen": false,
+            "widgetVisible": true,
+            "isOnline": false
+        }
+    }
+}]

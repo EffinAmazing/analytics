@@ -1,0 +1,40 @@
+<script>
+        window.drift.on('ready', function (api) {
+            var driftEvents = [
+                'sidebarOpen',
+                'sidebarClose',
+                'welcomeMessage:open',
+                'welcomeMessage:close',
+                'awayMessage:open',
+                'awayMessage:close',
+                'campaign:open',
+                'campaign:dismiss',
+                'campaign:click',
+                'campaign:submit',
+                'startConversation',
+                'sliderMessage:close',
+                'conversation:selected',
+                'message:sent',
+                'message',
+                'emailCapture',
+                'phoneCapture',
+                'scheduling:requestMeeting',
+                'scheduling:meetingBooked',
+                'conversation:playbookFired',
+                'conversation:playbookClicked',
+                'conversation:playbookDismissed',
+                'conversation:buttonClicked',
+                'conversation:firstInteraction',
+                'gdprClicked'
+            ]
+            dataLayer.push({ event: 'drift.ready' });
+            driftEvents.forEach(function (driftEvent) {
+                window.drift.on(driftEvent, function (data) {
+                    dataLayer.push({
+                        'event': 'drift.' + driftEvent.replace(':', '.'),
+                        'drift': data
+                    });
+                })
+            });
+        });
+</script>
