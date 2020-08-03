@@ -3,6 +3,11 @@ function gtag() {
   dataLayer.push(arguments)
 }
 
+if(window.location.search.match(/utm_expid=\.([^.]+)\.(\d)/i)) {
+var m = window.location.search.match(/utm_expid=\.([^.]+)\.(\d)/i);
+reportExperimentEvent(m[2], m[1]);
+}
+
 function reportExperimentEvent(ovar, oex) {
   if (ovar != undefined) dataLayer.push({'event':'analytics.experiment',analytics:{'experiment':{'id': oex, 'variant':ovar,'source':'google optimize'}}});
 }
