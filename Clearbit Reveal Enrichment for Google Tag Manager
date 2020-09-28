@@ -1,0 +1,61 @@
+<script>
+function pushClearbitToDataLayer(response){
+  var reveal = response;
+  
+ var clearbit_reveal = {
+    'clearbit_reveal_fuzzy': reveal.fuzzy,
+    'clearbit_reveal_company_name': reveal.company.name,
+    'clearbit_reveal_company_legal_name': reveal.company.legalName,
+    'clearbit_reveal_company_domain': reveal.company.domain,
+    'clearbit_reveal_company_domain_aliases': reveal.company.domainAliases.join(', '),
+    'clearbit_reveal_company_site_phone_numbers': reveal.company.site.phoneNumbers.join(', '),
+    'clearbit_reveal_company_site_email_addresses': reveal.company.site.emailAddresses.join(','),
+    'clearbit_reveal_company_category_sector': reveal.company.category.sector,
+    'clearbit_reveal_company_category_industry_group': reveal.company.category.industryGroup,
+    'clearbit_reveal_company_category_industry': reveal.company.category.industry,
+    'clearbit_reveal_company_category_sub_industry': reveal.company.category.subIndustry,
+    'clearbit_reveal_company_tags': reveal.company.tags.join(','),
+    'clearbit_reveal_company_description': reveal.company.description,
+    'clearbit_reveal_company_founded_year': reveal.company.foundedYear,
+    'clearbit_reveal_company_time_zone': reveal.company.timeZone,
+    'clearbit_reveal_company_utc_offset': reveal.company.utcOffset,
+    'clearbit_reveal_company_location': reveal.company.location,
+    'clearbit_reveal_company_geo_street_number': reveal.company.geo.streetNumber,
+    'clearbit_reveal_company_geo_street_name': reveal.company.geo.streetName,
+    'clearbit_reveal_company_geo_sub_premise': reveal.company.geo.subPremise,
+    'clearbit_reveal_company_geo_city': reveal.company.geo.city,
+    'clearbit_reveal_company_geo_postal_code': reveal.company.geo.postalCode,
+    'clearbit_reveal_company_geo_state': reveal.company.geo.state,
+    'clearbit_reveal_company_geo_state_code': reveal.company.geo.stateCode,
+    'clearbit_reveal_company_geo_country': reveal.company.geo.country,
+    'clearbit_reveal_company_geo_country_code': reveal.company.geo.countryCode,
+    'clearbit_reveal_company_geo_lat': reveal.company.geo.lat,
+    'clearbit_reveal_company_geo_lng': reveal.company.geo.lng,
+    'clearbit_reveal_company_logo': reveal.company.logo,
+    'clearbit_reveal_company_facebook_handle': reveal.company.facebook.handle,
+    'clearbit_reveal_company_linkedin_handle': reveal.company.linkedin.handle,
+    'clearbit_reveal_company_twitter_handle': reveal.company.twitter.handle,
+    'clearbit_reveal_company_twitter_followers': reveal.company.twitter.followers,
+    'clearbit_reveal_company_twitter_following': reveal.company.twitter.following,
+    'clearbit_reveal_company_crunchbase_handle': reveal.company.crunchbase.handle,
+    'clearbit_reveal_company_email_provider': reveal.company.emailProvider,
+    'clearbit_reveal_company_type': reveal.company.type,
+    'clearbit_reveal_company_ticker': reveal.company.ticker,
+    'clearbit_reveal_company_phone': reveal.company.phone,
+    'clearbit_reveal_company_metrics_alexa_us_rank': reveal.company.metrics.alexaUsRank,
+    'clearbit_reveal_company_metrics_alexa_global_rank': reveal.company.metrics.alexaGlobalRank,
+    'clearbit_reveal_company_metrics_employees': reveal.company.metrics.employees,
+    'clearbit_reveal_company_metrics_employees_range': reveal.company.metrics.employeesRange,
+    'clearbit_reveal_company_metrics_market_cap': reveal.company.metrics.marketCap,
+    'clearbit_reveal_company_metrics_raised': reveal.company.metrics.raised,
+    'clearbit_reveal_company_metrics_annual_revenue': reveal.company.metrics.annualRevenue,
+    'clearbit_reveal_company_metrics_estimated_annual_revenue': reveal.company.metrics.estimatedAnnualRevenue,
+    'clearbit_reveal_company_tech': reveal.company.tech.join(', ')
+  }
+  
+  
+dataLayer.push({'event':"Clearbit Loaded", 'clearbit_reveal': clearbit_reveal});
+ return true;
+ }
+</script>
+<script src="https://reveal.clearbit.com/v1/companies/reveal?authorization=pk_1ac5d48241e57ab90ffd55203e2008b9&callback=pushClearbitToDataLayer"></script>
